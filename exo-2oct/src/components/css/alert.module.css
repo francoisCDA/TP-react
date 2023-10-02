@@ -1,0 +1,29 @@
+.red, .blue, .green {
+   
+    margin: 10px;
+    width: 100vw;
+    height: 9vh;
+    text-align: center;
+    padding-top: 5vh;
+    border: solid;
+
+}
+
+
+.red {
+    border-color: red;
+    color: red;
+    background-color: rgba(255, 0, 0, 0.2) ;
+}
+
+.blue {
+    border-color: blue;
+    color:blue;
+    background-color: rgba(0, 0, 255, 0.3);
+}
+
+.green {
+    border-color: green;
+    color:green;
+    background-color: rgba(0, 128, 0, 0.3);
+}

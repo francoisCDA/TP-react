@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import mesStyles from './exoUseEffect.module.css';
 
 const ExoUseEffect = (props) => {
 
@@ -11,9 +11,9 @@ const ExoUseEffect = (props) => {
         if (nbA * nbB == props.atrouver) {
             setResult(`Vous avez trouvé une combinaison gagnante ${nbA} x ${nbB} = ${nbA*nbB} !`)
         } else if (nbA * nbB < props.atrouver) {
-            setResult('Le nombre recherché est plus grand')
+            setResult(`Le nombre recherché est plus grand que ${nbA*nbB}`)
         } else (
-            setResult('Le nombre recherché est plus petit')
+            setResult(`Le nombre recherché est plus petit que ${nbA*nbB}`)
         )
     }, [nbA,nbB])
     
@@ -29,7 +29,7 @@ const ExoUseEffect = (props) => {
 
     return (
 
-        <div>
+        <div className={mesStyles.container}>
             <div>
                 <label htmlFor="nbA"></label>
                 <input type="number" name="nbA" id="nbA" onChange={updInputA} />

@@ -2,15 +2,13 @@ import { useState } from "react"
 
 const FizzBuzz = (props) => {
 
-    const [nbFizzBuzz, setNbFizzBuzz] = useState('0');
+    const [nbFizzBuzz, setNbFizzBuzz] = useState('FizzBuzz');
     const [compt, setCompt] = useState(0);
     
     let nb = compt;
 
     const fizzbuzz = (n) => {
 
-        if (n < 1) {return 0}
-        if (n > Number(props.max) ) {return Number(props.max)}
         if (n%3 == 0 && n%5 == 0) {return 'FizzBuzz'}
         if (n%3 == 0) {return 'Fizz'}
         if (n%5 == 0) {return 'Buzz'}
@@ -19,13 +17,13 @@ const FizzBuzz = (props) => {
     }
 
     const incr = () => {
-        nb++;
+        if (nb<props.max) {nb++} ;
         setCompt(nb)
         setNbFizzBuzz(fizzbuzz(compt));
     }
     
     const decr = () => {
-        nb-- ;
+        if (nb>0) {nb--} ;
         setCompt(nb)
         setNbFizzBuzz(fizzbuzz(compt));
     }

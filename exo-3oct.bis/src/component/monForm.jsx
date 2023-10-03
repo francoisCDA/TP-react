@@ -26,7 +26,7 @@ const MonFormulaire = () => {
             <div>
                 <input type="text" dataKey="first" onInput={udpInputFirst} /><input type="text" dataKey="last" onInput={udpInputLast} />
             </div>
-            <p>Bonjour {`${identite.first.charAt(0).toUpperCase() + identite.first.slice(1)} ${identite.last.toUpperCase()}`}, bienvenue sur l'application !</p>
+            <p>Bonjour {`${identite.first.charAt(0).toUpperCase() + identite.first.slice(1).toLowerCase()} ${identite.last.toUpperCase()}`}, bienvenue sur l'application !</p>
         </>
     )
 

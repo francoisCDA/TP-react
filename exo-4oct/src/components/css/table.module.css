@@ -1,0 +1,23 @@
+.table {
+
+    max-width: 100%;
+    width: 100%;
+}
+
+.thead {
+    font-weight: bolder;
+    color: white;
+    background-color: black;
+    font-size: 1.3em;
+}
+
+.tbody {
+    border: 2px solid #000000;
+    background-color: aliceblue;
+
+}
+
+.tr {
+    border-bottom: 1px solid #000000;
+  
+}

@@ -5,11 +5,7 @@ import MonForm from './components/monForm'
 
 function App() {
 
-  const [listing, setListing] = useState([{
-    first: "Jean",
-    last: "MARTIN",
-    naissance: '1962-06-27'
-  }])
+  const [listing, setListing] = useState([])
 
   const addPerson = (data) => {
     setListing([...listing, data]);

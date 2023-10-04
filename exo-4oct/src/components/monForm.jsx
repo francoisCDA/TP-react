@@ -21,14 +21,23 @@ const MonForm = ({monPush}) => {
 
     
     return (
-        <form action="#" onSubmit={envoyer}>
-            <label htmlFor="first">Prénom</label>
-            <input type="text" name="first" id="first" placeholder="Prénom" value={first}  onInput={(e)=> setFirst(e.target.value)} />
-            <label htmlFor="last">Nom</label>
-            <input type="text" name="last" id="last" placeholder="Nom" value={last} onInput={(e)=> setLast(e.target.value)} />
-            <label htmlFor="naissance">Nom</label>
-            <input type="date" name="naissance" id="naissance" placeholder="Nom" value={naissance}  onInput={(e)=> setNaissance(e.target.value)} />
-            <button>Ajouter</button>
+        <form action="#" onSubmit={envoyer} className={styles.form}>
+            <div className={styles.subForm}>
+                <label htmlFor="first" className={styles.label}>Prénom</label>
+                <input type="text" name="first" id="first" placeholder="Prénom" value={first}  onInput={(e)=> setFirst(e.target.value)} />
+                
+            </div>
+            <div className={styles.subForm}>
+                <label htmlFor="last" className={styles.label}>Nom</label>
+                <input type="text" name="last" id="last" placeholder="Nom" value={last} onInput={(e)=> setLast(e.target.value)} />
+
+            </div>
+            <div className={styles.subForm}>
+                <label htmlFor="naissance" className={styles.label}>Date de Naissance</label>
+                <input type="date" name="naissance" id="naissance" placeholder="Nom" value={naissance}  onInput={(e)=> setNaissance(e.target.value)} />
+
+            </div>
+            <button className={styles.button}>Ajouter</button>
         </form>
     )
 }

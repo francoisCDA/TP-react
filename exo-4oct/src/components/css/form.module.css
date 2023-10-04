@@ -1,0 +1,21 @@
+.form {
+    padding-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.subForm {
+    display: flex;
+
+}
+
+.label {
+    width: 35%;
+}
+
+.button {
+    background-color: bisque;
+    margin-top: 1em;
+    border-radius: 15px;
+}

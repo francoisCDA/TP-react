@@ -7,7 +7,7 @@ import Reglages from './reglages'
 const Area = () => {
 
     const [level,setLevel] = useState({
-        nbEssais: 10,
+        nbEssais: 7,
         lgSequence: 4,
         nbCouleurs: 6
     })
@@ -26,7 +26,7 @@ const Area = () => {
                     <Pions nbCouleurs={level.nbCouleurs} />
                 </div>
                 <div className={areaCSS.setting}>
-                    <Reglages setting={changeSetting} />
+                    <Reglages level={level} setting={changeSetting} />
                 </div>
             </div>
         </div>

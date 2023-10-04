@@ -32,6 +32,8 @@
 
 .setting {
     width: 30vw;
-    height: 10vw;
+    height: 12vw;
     background-color: brown;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgba(43, 6, 6, 0.315);;
 }

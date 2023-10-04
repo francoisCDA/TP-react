@@ -8,7 +8,6 @@ const Grille = (props) => {
             ret.push('ligne d essai ' + i);
         }
 
-        console.dir(ret)
         return ret;
 
     }

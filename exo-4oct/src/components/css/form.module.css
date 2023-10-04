@@ -2,12 +2,10 @@
     padding-top: 5vh;
     display: flex;
     flex-direction: column;
-    
 }
 
 .subForm {
     display: flex;
-
 }
 
 .label {

@@ -12,7 +12,9 @@ const Area = () => {
         nbCouleurs: 6
     })
 
+
     const changeSetting = (data) => {
+        console.log(data);
         setLevel(data);
     }
 
@@ -26,7 +28,7 @@ const Area = () => {
                     <Pions nbCouleurs={level.nbCouleurs} />
                 </div>
                 <div className={areaCSS.setting}>
-                    <Reglages level={level} setting={changeSetting} />
+                    <Reglages setting={changeSetting} />
                 </div>
             </div>
         </div>

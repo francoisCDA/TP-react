@@ -1,13 +1,31 @@
+import { useState } from 'react';
 import styles from './css/reglage.module.css'
 
-const Reglages = ({level, setting}) => {
+const Reglages = ({setting}) => {
 
+    const [level,setLevel] = useState({
+        nbEssais: 7,
+        lgSequence: 4,
+        nbCouleurs: 6
+    })
 
-    const changsetting = (newLevel) => {
-        setting(newLevel);
+    const changsetting = () => {
+        setting({...level});
     }
 
-    let nbEss = '11';
+    
+    const setNbEssaisInc = () => {
+        setLevel({...level,nbEssais: (level.nbEssais)++});
+        console.log(level);
+        changsetting();
+    }
+
+
+    const setNbEssaisDec = () => {
+        setLevel({...level,nbEssais: level.nbEssais--});
+        changsetting();
+    }
+
 
     //changsetting({...level,nbEssais:(level.nbEssais++)})
     //changsetting({...level,nbEssais:(level.nbEssais--)})
@@ -15,9 +33,9 @@ const Reglages = ({level, setting}) => {
     return(
         <div className={styles.container}>
             <div className={styles.blocSetting}>
-                <button onClick={} type="button">&#8963;</button>
-                <span>{nbEss}</span>
-                <button onClick={} type="button">&#8964;</button>
+                <button onClick={setNbEssaisInc} type="button">&#8963;</button>
+                <span>{level.nbEssais}</span>
+                <button onClick={setNbEssaisDec} type="button">&#8964;</button>
             </div>
             <div className={styles.blocSetting}>
                 <button onClick={changsetting} type="button">&#8963;</button>

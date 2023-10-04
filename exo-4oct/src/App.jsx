@@ -7,6 +7,7 @@ import FormUseRef from './components/formUseRef'
 function App() {
 
   const [listing, setListing] = useState([])
+  const [id, setId] = useState('')
 
   const addPerson = (data) => {
     setListing([...listing, data]);
@@ -14,14 +15,15 @@ function App() {
  
   const monLog = (dataLog) => {
     console.log(`username : ${dataLog[0]}, password: ${dataLog[1]}`);
+    setId(<span>Bienvenu <strong>{dataLog[0]}</strong>, votre mot de passe secret est bien <strong>${dataLog[1]}</strong></span>)
   }
 
 
   return (
     <>
-      <h1>Formualire UseRef</h1>
-
-      <FormUseRef send={monLog} />      
+      <h1>Formulaire UseRef</h1>
+      
+      { id ? id : <FormUseRef send={monLog}  /> }       
 
       <h1>Formulaire callback</h1>
 

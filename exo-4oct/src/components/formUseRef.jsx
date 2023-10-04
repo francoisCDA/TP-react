@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import monstyle from "./css/formuseref.module.css"
 
 const FormUseRef = ({send}) => {
     
@@ -8,16 +9,15 @@ const FormUseRef = ({send}) => {
     
 
     const sendLocal = () => {
-        console.log(refInputUsername.current.value);
         send([refInputUsername.current.value,refInputPassword.current.value])
     }
 
     return (
-        <form action="">
+        <form action="" className={monstyle.form}>
             <label htmlFor="username">Nom d'utilisateur</label>
             <input type="text" ref={refInputUsername} name="username" id="username" />
             <label htmlFor="password">Nom d'utilisateur</label>
-            <input type="text" ref={refInputPassword} name="password" id="password" />
+            <input type="password" ref={refInputPassword} name="password" id="password" />
             <button type="button" onClick={sendLocal} >envoyer</button>
         </form>
                                   //onClick={send([refInputUsername.current.value,refInputPassword.current.value])}

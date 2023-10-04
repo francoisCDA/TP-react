@@ -7,11 +7,14 @@ const FormChrono = ({limite, newChrono}) => {
     const refDureeChrono = useRef();
 
     const sendBack = () => {
-        newChrono({nom: refNomChrono.current.value,duree:refDureeChrono.current.value})
+        console.log({nom: refNomChrono.current.value,duree:+refDureeChrono.current.value});
+        newChrono({nom: refNomChrono.current.value,duree:+refDureeChrono.current.value,delai:+refDureeChrono.current.value})
     }
 
 
     return (
+
+        
         <form action="" className={style.form}>
             <div className="grpForm">
                 <label htmlFor="nom">nom du chrono</label>
@@ -23,7 +26,7 @@ const FormChrono = ({limite, newChrono}) => {
                 <input type="number" name="duree" id="duree" ref={refDureeChrono} />
             </div>
 
-            <button disabled={limite<5} type="button" onClick={sendBack}>Démarer</button>
+            <button disabled={limite>4} type="button" onClick={sendBack}>Démarer</button>
 
 
         </form>

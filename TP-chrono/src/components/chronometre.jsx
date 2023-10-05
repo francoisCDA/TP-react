@@ -11,12 +11,16 @@ const Chronometre = ({temps, rm, ind}) => {
      const decompte = setInterval(() => {
       setSeconds(prevSeconds => prevSeconds - 1);
     }, 1000);
-  
-    return () => clearInterval(decompte);
+    
+    return () => {
+      clearInterval(decompte);
+      // decompte = undefined;
+    }
   }, []);  
-
-
+  
+  
   useEffect(() => {
+   
     if (seconds<= 0) { 
       sonnerie.play();
       rm(ind) };
@@ -25,6 +29,7 @@ const Chronometre = ({temps, rm, ind}) => {
   return (
     <>
       <span>Il reste : {seconds} secondes</span>
+      <progress value={temps-seconds} max={temps} ></progress>
     </>
   );
 };

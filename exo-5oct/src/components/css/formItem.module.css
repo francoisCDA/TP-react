@@ -1,0 +1,30 @@
+.form {
+    position: absolute;
+    left: 0;
+    top:0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+    & > div {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin: 0.5em 0;
+
+        & label {
+            
+            width: 100%;
+        }
+    }
+
+    & > button {
+        background-color: rgba(140, 140, 245, 0.705);
+    }
+    
+    & > button:hover {
+        background-color: rgba(23, 23, 243, 0.705);
+    }
+
+
+}

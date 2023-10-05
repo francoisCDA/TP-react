@@ -16,12 +16,12 @@ const FormChrono = ({limite, newChrono}) => {
 
         
         <form action="" className={style.form}>
-            <div className="grpForm">
+            <div className={style.grpForm}>
                 <label htmlFor="nom">nom du chrono</label>
                 <input type="text" name="nom" id="nom" ref={refNomChrono} />
             </div>
         
-            <div className="grpForm">
+            <div className={style.grpForm}>
                 <label htmlFor="duree">durée du chrono en seconde</label>
                 <input type="number" name="duree" id="duree" ref={refDureeChrono} />
             </div>

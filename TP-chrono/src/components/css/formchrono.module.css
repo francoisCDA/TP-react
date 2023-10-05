@@ -1,8 +1,21 @@
 .form {
+    width: 30%;
     display: flex;
     flex-direction: column;
-     
-    & .grpForm {
-        display: flex;
+    justify-content: space-around;
+    height: 50%;
+    margin: auto;
+
+    & button {
+        background-color: cadetblue;
+
     }
+     
+}
+
+.grpForm {
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+
 }

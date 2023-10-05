@@ -43,9 +43,20 @@
 
 .container {
   display: flex;
-  background-color: aqua;
+  background-color: rgb(158, 170, 170);
+  width: 80vw;
+  height: 60vh;
+
 
   & form {
     background-color: bisque;
   }
+  & .listeChrono {
+    width: 70%;
+    background-color: burlywood;
+    display:  flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  
 }

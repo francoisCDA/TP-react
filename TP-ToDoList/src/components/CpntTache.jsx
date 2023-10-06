@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { CtxToDoList } from "../contexts/ctxtodolist";
 import styles from "./css/tache.module.css" 
-import Tache from "../classs/list";
 
 const CpntTache = ({idTask}) => {
 
@@ -13,13 +12,11 @@ const CpntTache = ({idTask}) => {
 
     const setStatut = () => {
         setMaTache({...maTache,statut: true});
-      // maTache.statut = true;
-
     }
     
     useEffect( () => {
-        console.dir(maTache);
-        
+                
+        // pas indispençable, mais il me semble plus cohérent de remonter d'information,
         
         const ind = toDoList.find(task => task.id == idTask );
         
@@ -30,29 +27,59 @@ const CpntTache = ({idTask}) => {
     }, [maTache])
 
     const rmTache = () => {
-        const ind = toDoList.find(task => task.id == idTask );
         const nextToDo = toDoList.filter( task => task.id !=  idTask);
         setToDoList(nextToDo);
-
     }
 
 
-    const handleStatut = (statut) => {
-        if (statut) {
+    const handleStatut = (e) => {
+        if (maTache.statut) {
             return (
-                <button onClick={rmTache}>Supprimer</button>
+                <span>
+                    <button onClick={rmTache}>Supprimer</button>
+                </span>
             )
         } 
 
         return (
         <span className="grpForm">
-            <label htmlFor="chtache">Terminée</label>
-            <input type="checkbox" name="chtache" id='chtache' placeholder='tâche' onChange={setStatut}/>
+            <label htmlFor={`${idTask}`}>Terminée</label>
+            <input type="checkbox" name={`${idTask}`} id={`${idTask}`} placeholder='tâche' onChange={setStatut}/>
         </span>)
     }
 
+    const urgence = () => {
+        if (maTache.statut) {
+            return styles.bleu ;
+        }
+
+        const hui = new Date();
+        hui.setHours(0,0,0,0);
+        const ddln = new Date(maTache.deadline);
+        
+        console.log(ddln);
+        console.log(hui);
+        console.log(ddln -hui);
+
+
+        if ( ddln - hui > 650000000 ) { // plus d'une semaine (en mlilliseconde)
+            return styles.vert ;    
+        } 
+
+        if ( ddln - hui  > 7500000 ) { 
+            return styles.orange ;
+        }
+
+        if ( ddln -hui > 0 ) {
+            return styles.rouge
+        }
+
+        return styles.noir
+
+    }
+
     return (
-        <li className={styles.li}><span>{maTache.tache}</span> <span>date limite : {maTache.deadline}</span> {handleStatut(maTache.statut)} </li>
+        <li className={urgence()}><span>#{idTask} : {`${maTache.tache}`}</span> <span>date limite : {new Date(maTache.deadline).toLocaleDateString()}</span> {handleStatut(maTache.statut)} </li>
     )
 
 

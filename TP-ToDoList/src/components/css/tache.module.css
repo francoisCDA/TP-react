@@ -1,0 +1,27 @@
+.vert {
+    border : solid 2px green;
+    background-color: rgba(172, 255, 47, 0.342);
+}
+
+.orange {
+    border: solid 2px orange;
+    background-color: rgba(255, 166, 0, 0.39);
+}
+
+.rouge {
+    border: solid 2px red;
+    background-color: rgba(255, 0, 0, 0.363);
+}
+
+.bleu {
+    border: solid 2px blue;
+    background-color: rgba(4, 0, 255, 0.363);
+}
+
+.noir {
+    border: solid 4px red;
+    background-color: black;
+    font-size: larger;
+    color: red;
+    
+}

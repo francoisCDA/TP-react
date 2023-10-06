@@ -12,12 +12,16 @@ function App() {
   }, [toDoList] )
 
   return (
-    <>
+    <div className='container'>
   <CtxToDoList.Provider value={[toDoList, setToDoList]}>
         <FormList />
-        {toDoList && toDoList.map( task => <CpntTache key={task.id} idTask={task.id} /> )}
+        <div className='listContainer'>
+          <ul>
+            {toDoList && toDoList.map( task => <CpntTache key={task.id} idTask={task.id} /> )}
+          </ul>
+        </div>
   </CtxToDoList.Provider>
-    </>
+    </div>
   )
 }
 

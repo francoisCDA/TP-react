@@ -6,8 +6,4 @@ export default class Tache {
         this.deadline = deadline ;
         this.statut = statut ;
     }
-
-    chStatut () {
-        this.statut = true;
-    } 
 }

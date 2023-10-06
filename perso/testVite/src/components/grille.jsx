@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 const Grille = (props) => {
+
+    const[proposition,setProposition] = useState([]); // soit ici, pas besoin de context, la séquence retour est envoyée à la validation bouton, pas de réactivité, utilisation d'un formulaire select?
 
     const mkLigne = () => {
         

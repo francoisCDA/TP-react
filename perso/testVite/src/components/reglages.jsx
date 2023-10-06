@@ -1,34 +1,47 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { Level } from '../contexts/level';
 import styles from './css/reglage.module.css'
 
-const Reglages = ({setting}) => {
+const Reglages = () => {
 
-    const [level,setLevel] = useState({
-        nbEssais: 7,
-        lgSequence: 4,
-        nbCouleurs: 6
-    })
-
-    const changsetting = () => {
-        setting({...level});
-    }
+    const [level,setLevel] = useContext(Level);
 
     
     const setNbEssaisInc = () => {
-        setLevel({...level,nbEssais: (level.nbEssais)++});
-        console.log(level);
-        changsetting();
+        let nextLevel = {...level};
+        if (nextLevel.nbEssais < 16 ) {nextLevel.nbEssais++;}
+        setLevel(nextLevel);
     }
-
 
     const setNbEssaisDec = () => {
-        setLevel({...level,nbEssais: level.nbEssais--});
-        changsetting();
+        let nextLevel = {...level};
+        if (nextLevel.nbEssais > 5 ) {nextLevel.nbEssais--;}
+        setLevel(nextLevel);
     }
 
+    const setLgSequenceInc = () => {
+        let nextLevel = {...level};
+        if (nextLevel.lgSequence < 9 ) {nextLevel.lgSequence++;}
+        setLevel(nextLevel);
+    }
 
-    //changsetting({...level,nbEssais:(level.nbEssais++)})
-    //changsetting({...level,nbEssais:(level.nbEssais--)})
+    const setLgSequenceDec = () => {
+        let nextLevel = {...level};
+        if (nextLevel.lgSequence > 4 ) {nextLevel.lgSequence--;}
+        setLevel(nextLevel);
+    }
+
+    const setNbCouleursInc = () => {
+        let nextLevel = {...level};
+        if (nextLevel.nbCouleurs < 12 ) {nextLevel.nbCouleurs++;}
+        setLevel(nextLevel);
+    }
+
+    const setNbCouleursDec = () => {
+        let nextLevel = {...level};
+        if (nextLevel.nbCouleurs > 5 ) {nextLevel.nbCouleurs--;}
+        setLevel(nextLevel);
+    }
     
     return(
         <div className={styles.container}>
@@ -38,14 +51,14 @@ const Reglages = ({setting}) => {
                 <button onClick={setNbEssaisDec} type="button">&#8964;</button>
             </div>
             <div className={styles.blocSetting}>
-                <button onClick={changsetting} type="button">&#8963;</button>
+                <button onClick={setLgSequenceInc} type="button">&#8963;</button>
                 <span>{level.lgSequence}</span>
-                <button onClick={changsetting} type="button">&#8964;</button>
+                <button onClick={setLgSequenceDec} type="button">&#8964;</button>
             </div>
             <div className={styles.blocSetting}>
-                <button onClick={changsetting} type="button">&#8963;</button>
+                <button onClick={setNbCouleursInc} type="button">&#8963;</button>
                 <span>{level.nbCouleurs}</span>
-                <button onClick={changsetting} type="button">&#8964;</button>
+                <button onClick={setNbCouleursDec} type="button">&#8964;</button>
             </div>
 
 

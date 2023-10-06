@@ -16,7 +16,7 @@ function App() {
     <CtxFilm.Provider value={[videotek,setVideotek]}>
       <FormItem />
       
-      { Object.keys(videotek).flatMap( cle => <CardItem id={cle} key={cle} /> )}
+      { Object.keys(videotek).map( cle => <CardItem id={cle} key={cle} /> )}
 
     </CtxFilm.Provider>
   )

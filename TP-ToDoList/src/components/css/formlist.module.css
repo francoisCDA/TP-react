@@ -1,0 +1,23 @@
+.form {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    & .grpForm {  /* marche pas... */
+          background-color: aqua;
+         
+    }
+
+    &  label {
+        margin-right: 1em;
+
+    }
+
+    & > button {
+        background-color: rgb(150, 150, 228);
+    }
+}

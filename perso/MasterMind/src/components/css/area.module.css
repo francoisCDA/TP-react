@@ -1,0 +1,39 @@
+.container {
+    width: 80vw;
+    height: 100vh;
+    background-color: burlywood;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+
+}
+
+.masterban {
+    width: 40%;
+    height: 90%;
+    background-color: rgb(255, 122, 122);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.subContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly
+}
+
+.bowl {
+    width: 30vw;
+    height: 30vw;
+    background-color: cadetblue;
+}
+
+.setting {
+    width: 30vw;
+    height: 12vw;
+    background-color: brown;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgba(43, 6, 6, 0.315);;
+}

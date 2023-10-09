@@ -1,11 +1,12 @@
 import { useRouteError } from "react-router-dom";
+import { Heading, Text } from "@radix-ui/themes";
 
 const ErrorPage = () => {
     const error = useRouteError()
     return (
         <>
-            <h1>Error {error.status}</h1>
-            <p>{error.data}</p>
+            <Heading as="h1">Error {error.status}</Heading>
+            <Text as="p">{error.data}</Text>
         </>
     )
 }

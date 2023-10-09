@@ -1,3 +1,5 @@
+import { Button } from "@radix-ui/themes"
+
 const ContactForm = () => {
 
     return (
@@ -22,7 +24,8 @@ const ContactForm = () => {
                 <label htmlFor="">truc 1</label>
                 <input type="text" />
             </div>
-            <button>clic me</button>
+            <Button>Click me !</Button>
+
         </form>
     )
 

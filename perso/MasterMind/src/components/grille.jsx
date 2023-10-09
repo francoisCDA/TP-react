@@ -1,13 +1,19 @@
 import { useContext, useEffect, useState } from "react";
+import { Flex, Button } from "@radix-ui/themes";
 import AffSolution from "./affSolution";
+//import AffProposition from "./affProposition";
+import PionJoue from "./pionjoue";
 import AffTry from "./affTry";
 import { ActivColor } from "../contexts/level";
+
+
 
 const Grille = ({nbLignes, combinaison}) => {
 
     const [activColor,_] = useContext(ActivColor);
 
-    const [proposition,setProposition] = useState([]); 
+    //const [proposition,setProposition] = useState((new Array()).fill((new Array(combinaison.length)).fill(-1))); 
+    const [proposition,setProposition] = useState(new Array(combinaison.length).fill('NaC')); 
     const [progression,setProgression] = useState([]);
 
 
@@ -30,13 +36,9 @@ const Grille = ({nbLignes, combinaison}) => {
         
         let ret = [];
         
-
-        for (let i = 0 ; i < nbLignes ; i++) {
-            if (progression[i]) {
-                ret.push(progression[i]);
-            } else {
+        for (let i = 0 ; i < (nbLignes - progression.length - 1) ; i++) {
                 ret.push((new Array(combinaison.length)).fill(-2));
-            }
+        
         }
         //console.log(ret);
     
@@ -66,8 +68,8 @@ const Grille = ({nbLignes, combinaison}) => {
     
     useEffect( () => {
       //  setProgression([...progression,proposition])
-     // console.log("proposition ")
-    //   console.log(proposition)
+     console.log("proposition ")
+      console.log(proposition)
     }, [proposition])
 
     return (
@@ -79,9 +81,18 @@ const Grille = ({nbLignes, combinaison}) => {
 
                 {/* ajouter la ligne de proposition */}
 
+                {/* {proposition.map( (couleur,i) => <AffProposition key={i} long={proposition.length} />)} */}
+
+                <Flex justify="start" mb="3" align="center" style={{marginLeft: `${ 50 + (9 - proposition.length) * 38}px`}} >
+                     {proposition.map( (color, i) => <PionJoue key={i} color={color} retInd={aJoue} ind={i} />)}
+                     <Button ml="3" size="3">Valider</Button>
+                </Flex>
+
+
+
                 {/* ajouter les lignes restantes */}
 
-                {(mkLigne()).map( (ligne,i) => <AffTry key={i} sequ={ligne} joue={aJoue} />)}
+                {(mkLigne()).map( (ligne,i) => <AffTry key={i} sequ={ligne} />)}
 
             
         </>

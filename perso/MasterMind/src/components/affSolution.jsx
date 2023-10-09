@@ -12,7 +12,7 @@ const AffSolution = ({sequ}) => {
 
     return (
         <>
-            <Flex justify="start" style={{marginLeft: `${(9 - sequ.length) * 38 + 30}px`}}>
+            <Flex justify="start" >
                 {sequ.map( (color,i) => isColor(color,i))}
             </Flex>
         </>

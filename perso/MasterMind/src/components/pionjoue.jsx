@@ -1,7 +1,7 @@
 import { Flex, Box } from "@radix-ui/themes"
 import './css/playedpion.css';
 
-const PionJoue = ({color,retInd, ind}) => {
+const PionJoue = ({color,retInd, ind, clName}) => {
 
     const backInd = () => {
         retInd(ind);

@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { Flex, Button } from "@radix-ui/themes";
+import { Flex, Button, Container } from "@radix-ui/themes";
 import AffSolution from "./affSolution";
-//import AffProposition from "./affProposition";
-import PionJoue from "./pionjoue";
-import AffTry from "./affTry";
 import { ActivColor } from "../contexts/level";
+import AffLignesVides from "./affLignesVides";
+import Place from "./place";
+import AffProgression from "./affProgression";
+
 
 
 
@@ -18,6 +19,7 @@ const Grille = ({nbLignes, combinaison}) => {
 
 
     const chkProp = () => {
+      
         for (let i = 0 ; i < combinaison.length ; i++) {
             if (proposition[i] != combinaison[i]) return false ;
         }
@@ -31,25 +33,54 @@ const Grille = ({nbLignes, combinaison}) => {
         return ((new Array(combinaison.length)).fill('NaC'))
     }
 
-    const mkLigne = () => {
-        
+    const mkLigneVides = () => {
         
         let ret = [];
         
-        for (let i = 0 ; i < (nbLignes - progression.length - 1) ; i++) {
+        for (let i = 0 ; i < (nbLignes - progression.length ) ; i++) {
                 ret.push((new Array(combinaison.length)).fill(-2));
         
         }
-        //console.log(ret);
-    
+       // console.log(ret);
         return ret;
 
     }
 
+    const evalProp = (prop) => {
+
+        const propRmOk = prop.filter((couleur,i) => couleur != combinaison[i] ) ;
+
+        const nbPointBlanc = combinaison.length - propRmOk.length ;
+        
+        const combiRmOK = combinaison.filter( (couleur,i) => couleur != prop[i] ) ;
+        
+        
+        let nbPointNoir = 0 ;
+
+        for ( let color of propRmOk ) {
+            const iCoul = combiRmOK.indexOf(color) ;
+            console.log('iCoul : ',iCoul);
+            if (iCoul != -1) {
+                nbPointNoir++ ;
+                combiRmOK.splice(iCoul,1,'NaC');
+            }
+        }
+
+        
+        return { blanc : nbPointBlanc, noir : nbPointNoir}
+    }
+
+
+    const valideProposition = () => {
+
+        setProgression(prev => [...prev, proposition]);
+
+    }
+
+
     const aJoue = (ind) => {
         
         const nextProp = [];
-
 
         for ( let [i,color] of proposition.entries() ) {
 
@@ -64,36 +95,39 @@ const Grille = ({nbLignes, combinaison}) => {
         setProgression([((new Array(combinaison.length)).fill(-1))])
     }, [combinaison])
 
+    useEffect( () => {
+        setProposition(((new Array(combinaison.length)).fill('NaC')))
+      }, [progression])
 
     
     useEffect( () => {
       //  setProgression([...progression,proposition])
-     console.log("proposition ")
-      console.log(proposition)
+     //console.log("proposition ")
+      //console.log(proposition)
     }, [proposition])
 
     return (
         <>
+            <Container style={{marginLeft: `${(9 - combinaison.length) * 38 + 30}px`}}>
+
                 <AffSolution sequ={firstLign()}/>
                 <hr className="h-2 my-2 bg-gray-400 border-3 dark:bg-gray-700"/>
-                
-                {/* ajouter les lignes de progression */}
 
-                {/* ajouter la ligne de proposition */}
 
-                {/* {proposition.map( (couleur,i) => <AffProposition key={i} long={proposition.length} />)} */}
 
-                <Flex justify="start" mb="3" align="center" style={{marginLeft: `${ 50 + (9 - proposition.length) * 38}px`}} >
-                     {proposition.map( (color, i) => <PionJoue key={i} color={color} retInd={aJoue} ind={i} />)}
-                     <Button ml="3" size="3">Valider</Button>
+                { (progression.length > 0) && progression.map( (prop,i) => <AffProgression key={i} ligne={prop} blEtNo={evalProp(prop)} /> ) }
+
+                { (progression.length < nbLignes) &&
+
+                <Flex mb="3">
+                    { proposition.map( (couleur,i) => <Place key={i} couleur={couleur} playable={true} useCallback={aJoue} ind={i} />)}
+                    { !chkProp() && <Button ml="3" size="3" disabled={proposition.includes('NaC')} onClick={valideProposition}>Valider</Button> }
                 </Flex>
+                }
 
+                { (progression.length < nbLignes -1) && (mkLigneVides()).map( (ligne,i) => <AffLignesVides key={i} ligne={ligne} />)}
 
-
-                {/* ajouter les lignes restantes */}
-
-                {(mkLigne()).map( (ligne,i) => <AffTry key={i} sequ={ligne} />)}
-
+            </Container>
             
         </>
     )

@@ -20,6 +20,13 @@ const FormContact = () => {
     const refTel = useRef();
     const refButton = useRef();
 
+    const resetRef = () => {
+        refFirst.current.value = '' ;
+        refLast.current.value = '' ;
+        refMail.current.value = '' ;
+        refTel.current.value = '' ;
+
+    }
 
 
     const addContact = () => {
@@ -28,9 +35,9 @@ const FormContact = () => {
         } else {
             if (mode == "edit") {
                 let newLstContact = [...lstContacts] ;
-                
+                const contactTmp = lstContacts.find( (contact) => contact.id = id )
                 //const cible = newLstContact.findIndex(ctct => ctct.id == id) ;
-                const cible = newLstContact.findIndex(ctct => ctct.id == 1696943734735 ) ;
+                const cible = newLstContact.indexOf(contactTmp ) ;
                 console.log('id : ',id)
                 console.log('cible : ',cible);
                 newLstContact[cible] = new Contact(refFirst.current.value,refLast.current.value,refMail.current.value,refTel.current.value) ;
@@ -42,6 +49,7 @@ const FormContact = () => {
                 setLstContacts(newLstContact);
             }
         }
+        resetRef();
     }
 
     useEffect (()=> {
@@ -56,13 +64,14 @@ const FormContact = () => {
             refLast.current.value = contactTmp.nom ;
             refMail.current.value = contactTmp.courriel ;
             refTel.current.value = contactTmp.telephone ;
+        } else {
+            resetRef();
         }
+
+
     }, [id])
 
-    useEffect ( () => {
-        console.dir(lstContacts);
-    }, [lstContacts])
-
+ 
     return (
         <form action="">
             <div className="grpForm">

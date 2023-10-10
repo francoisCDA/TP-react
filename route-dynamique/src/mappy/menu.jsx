@@ -9,7 +9,7 @@ const Menu = () => {
 
 
     useEffect( () => {
-       // console.dir(lstContacts);
+       console.dir(lstContacts);
     }, [lstContacts])
 
     return (

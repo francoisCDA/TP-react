@@ -4,7 +4,7 @@ class Contact {
         this.nom = nom ;
         this.courriel = courriel;
         this.telephone = telephone;
-        this.id = Date.parse(new Date());
+        this.id = Date.now();
     }
 }
 

@@ -17,7 +17,11 @@ const Mappy = createBrowserRouter([
             element: <Acceuil /> },
             {path : "/contacts",
             element : <ContactsList />},
-            {path : "/contacts/:mode",
+            {path : "/contacts/add",
+            element : <FormContact />},
+            {path : "/contacts/edit/:id",
+            element : <FormContact />},
+            {path : "/contacts/delete/:id",
             element : <FormContact />},
         ] 
     },

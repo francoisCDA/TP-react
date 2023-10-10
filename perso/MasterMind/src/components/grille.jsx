@@ -13,7 +13,6 @@ const Grille = ({nbLignes, combinaison}) => {
 
     const [activColor,_] = useContext(ActivColor);
 
-    //const [proposition,setProposition] = useState((new Array()).fill((new Array(combinaison.length)).fill(-1))); 
     const [proposition,setProposition] = useState(new Array(combinaison.length).fill('NaC')); 
     const [progression,setProgression] = useState([]);
 
@@ -41,9 +40,8 @@ const Grille = ({nbLignes, combinaison}) => {
                 ret.push((new Array(combinaison.length)).fill(-2));
         
         }
-       // console.log(ret);
+  
         return ret;
-
     }
 
     const evalProp = (prop) => {
@@ -53,7 +51,6 @@ const Grille = ({nbLignes, combinaison}) => {
         const nbPointBlanc = combinaison.length - propRmOk.length ;
         
         const combiRmOK = combinaison.filter( (couleur,i) => couleur != prop[i] ) ;
-        
         
         let nbPointNoir = 0 ;
 
@@ -65,7 +62,6 @@ const Grille = ({nbLignes, combinaison}) => {
             }
         }
 
-        
         return { blanc : nbPointBlanc, noir : nbPointNoir}
     }
 
@@ -96,21 +92,15 @@ const Grille = ({nbLignes, combinaison}) => {
 
     useEffect( () => {
         setProposition(((new Array(combinaison.length)).fill('NaC')))
-        
     }, [progression])
     
-    
-    useEffect( () => {
-        //  setProgression([...progression,proposition])
-        //console.log("proposition ")
-        //console.log(proposition)
-    }, [proposition])
 
     return (
         <>
-            <Container style={{marginLeft: `${(9 - combinaison.length) * 38 + 30}px`}}>
+            <Container className='bg-slate-300 p-6 rounded-3xl' >
 
                 <AffSolution sequ={firstLign()}/>
+
                 <hr className="h-2 my-2 bg-gray-400 border-3 dark:bg-gray-700"/>
 
 

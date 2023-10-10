@@ -12,7 +12,7 @@ const Pion = ({couleur, angleRot}) => {
 
     return (
         
-        <Box  className=" absolute top-[5%] left-[45%] translate-x-[-50%] h-44" style={{transform: `${angleRot}`, transformOrigin: 'bottom center' }}  >
+        <Box  className=" absolute top-[4%] left-[42%] translate-x-[-50%] h-44" style={{transform: `${angleRot}`, transformOrigin: 'bottom center' }}  >
             <Box className=" w-[100%] h-[100%] ">
                 <Box width="9" height="9" className="rounded-full" style={{backgroundColor: `${couleur}`}} onClick={updActivColor}></Box>
             </Box>

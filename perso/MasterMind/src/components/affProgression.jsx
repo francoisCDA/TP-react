@@ -1,7 +1,7 @@
 import { Flex } from "@radix-ui/themes"
 import Place from "./place"
 import Indices from "./indices"
-import { useEffect } from "react"
+
 
 const AffProgression = ({ligne,blEtNo}) => {
 

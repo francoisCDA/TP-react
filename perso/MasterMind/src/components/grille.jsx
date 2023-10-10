@@ -59,7 +59,6 @@ const Grille = ({nbLignes, combinaison}) => {
 
         for ( let color of propRmOk ) {
             const iCoul = combiRmOK.indexOf(color) ;
-            console.log('iCoul : ',iCoul);
             if (iCoul != -1) {
                 nbPointNoir++ ;
                 combiRmOK.splice(iCoul,1,'NaC');
@@ -92,18 +91,19 @@ const Grille = ({nbLignes, combinaison}) => {
 
     useEffect( () => {
         setProposition(((new Array(combinaison.length)).fill('NaC')))
-        setProgression([((new Array(combinaison.length)).fill(-1))])
+        // setProgression([((new Array(combinaison.length)).fill(-1))])
     }, [combinaison])
 
     useEffect( () => {
         setProposition(((new Array(combinaison.length)).fill('NaC')))
-      }, [progression])
-
+        
+    }, [progression])
+    
     
     useEffect( () => {
-      //  setProgression([...progression,proposition])
-     //console.log("proposition ")
-      //console.log(proposition)
+        //  setProgression([...progression,proposition])
+        //console.log("proposition ")
+        //console.log(proposition)
     }, [proposition])
 
     return (

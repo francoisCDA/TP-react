@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { Flex, Button, Container } from "@radix-ui/themes";
-import AffSolution from "./affSolution";
 import { ActivColor } from "../contexts/level";
-import AffLignesVides from "./affLignesVides";
 import Place from "./place";
+import AffSolution from "./affSolution";
+import AffLignesVides from "./affLignesVides";
 import AffProgression from "./affProgression";
 
 
@@ -28,7 +28,7 @@ const Grille = ({nbLignes, combinaison}) => {
     }
 
     const firstLign = () => {
-        if (chkProp()) { return combinaison }
+        if (chkProp() || progression.length == nbLignes ) { return combinaison }
 
         return ((new Array(combinaison.length)).fill('NaC'))
     }
@@ -91,7 +91,7 @@ const Grille = ({nbLignes, combinaison}) => {
 
     useEffect( () => {
         setProposition(((new Array(combinaison.length)).fill('NaC')))
-        // setProgression([((new Array(combinaison.length)).fill(-1))])
+        setProgression([])
     }, [combinaison])
 
     useEffect( () => {

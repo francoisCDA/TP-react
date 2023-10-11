@@ -1,13 +1,16 @@
-import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
-const LiTache = ({tache, editTache, delTache}) => {
+const LiTache = ({tache, delTache}) => {
     
+    const netscape = useNavigate();
+
     const edit = () => {
-        editTache(tache.id);
+        netscape(`/edit/${tache.id}`);
     }
 
     const suppr = () => {
-        delTache(tache.id)
+        delTache(tache.id);
+        netscape(`/`);
     }
 
     return (

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 
-//import styles from './css/form.module.css'
+import styles from './css/form.module.css'
 
 
 const FormToDo = ({addTache, editTache, backEdit}) => {
@@ -49,7 +49,7 @@ const FormToDo = ({addTache, editTache, backEdit}) => {
     }, [editTache])
 
     return (
-        <form action="#" >
+        <form action="#" className={styles.formulaire}>
             
             <div className="grpInput">
                 <label htmlFor="titre">Titre</label>

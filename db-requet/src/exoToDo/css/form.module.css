@@ -1,4 +1,21 @@
 .formulaire {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90vh;
+    margin: auto;
+    background-color: bisque;
+    padding: 1em;
+    border-radius: 15px;
+    box-shadow: 10px 10px sandybrown;
+
+    & label {
+        margin-right: 3px;
+    }
+
+    & > div:first-child  input {
+        width: 300px;
+        margin-left: 20px;
+    }
 }
 

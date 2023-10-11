@@ -1,8 +1,17 @@
 import { useRef } from "react"
 
-const FormToDo = ({tache, addTache}) => {
+//import styles from './css/form.module.css'
+
+
+
+const FormToDo = ({addTache}) => {
 
     const add = () => {
+        
+        addTache(refInputTitre.current.value,refInputDate.current.value)
+
+        refInputTitre.current.value = '';
+        refInputDate.current.value = '';
 
     }
 
@@ -11,7 +20,8 @@ const FormToDo = ({tache, addTache}) => {
 
 
     return (
-        <form action="#">
+        <form action="#" >
+            
             <div className="grpInput">
                 <label htmlFor="titre">Titre</label>
                 <input ref={refInputTitre} type="text" id="titre" name="titre" />
@@ -21,6 +31,7 @@ const FormToDo = ({tache, addTache}) => {
                 <input ref={refInputDate} type="date" id="date" name="date" />
             </div>
             <button type="button" onClick={add}>Ajouter Tâche</button>
+            
         </form>
     )
 

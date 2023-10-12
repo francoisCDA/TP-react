@@ -1,0 +1,22 @@
+{
+    "magasin": [
+        {
+            "id": 1,
+            "label": "ram",
+            "prixHT": 210,
+            "disponible": 12
+        },
+        {
+            "id": 2,
+            "label": "Carte ISA",
+            "prixHT": 320,
+            "disponible": 12
+        },
+        {
+            "id": 3,
+            "label": "Carte AGP",
+            "prixHT": 410,
+            "disponible": 12
+        }
+    ]
+}

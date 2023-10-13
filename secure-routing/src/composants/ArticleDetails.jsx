@@ -14,22 +14,14 @@ const ArticleDetails = () => {
     
     const [quantity, setquantity] = useState(0);
     
-    
-    
+        
     let panier = JSON.parse(localStorage.getItem("TP-store_panier_utilisateur")) ?? {};
-
-    console.log("panier 1 ", panier);
+   
     
     if (!panier[`${id}`]) {
         panier[`${id}`] = 0 ;
-        console.log(`panier.${id} : ` ,panier[`${id}`]);
-    } else {
-        console.log("panier actuelle");
-        console.dir(panier.id);
-    }
-    console.log("panier 2 ", panier.id);
-
-
+    } 
+   
     
     useEffect( () => {
         axios.get(`http://localhost:5001/magasin/${id}`)
@@ -40,23 +32,14 @@ const ArticleDetails = () => {
             console.error("Erreur : ",error)
         })
         
-        console.log("panier.id", panier[`${id}`])
-        
+      
         setquantity(panier[`${id}`])
 
     }, [])
 
 
-    useEffect(() => {
-         console.log("quantity : ", quantity)
-
-    }, [quantity]);
-
-
     const add = () => { 
-        console.log("hey", quantity);
-        if (quantity < thisArticle.disponible ) {
-            console.log("hoo");
+         if (quantity < thisArticle.disponible ) {
     
         const newQuantity = quantity + 1 ;
         setquantity(newQuantity);
@@ -80,9 +63,6 @@ const ArticleDetails = () => {
         panier[`${id}`] = quantity ;
 
         if ( quantity == 0 ) { delete panier[`${id}`] }
-
-        console.log("panier actuelle");
-        console.dir(panier);
 
         const panierJson = JSON.stringify(panier);
 

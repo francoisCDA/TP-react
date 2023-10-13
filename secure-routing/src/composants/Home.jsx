@@ -14,10 +14,7 @@ useEffect( () => {
     .catch(error => {
       console.error("Erreur : ",error)
     })
-
-    
-
-
+ 
 }, [])
 
 

@@ -7,6 +7,7 @@ import FormAdmin from "../src/composants/FormAdmin";
 import AuthAdmin from "../src/composants/AuthAdmin";
 import AcceRefuse from "../src/composants/AcceRefuse";
 import ArticleDetails from "../src/composants/ArticleDetails";
+import ArticleAdmin from "../src/composants/ArticleAdmin";
 
 const maRoute = createBrowserRouter([
     
@@ -29,6 +30,10 @@ const maRoute = createBrowserRouter([
             {
                 path: "/admin",
                 element: <Gendarmerie><FormAdmin/></Gendarmerie>,
+            },
+            {
+                path: "/admin/article/:id",
+                element: <Gendarmerie><ArticleAdmin /></Gendarmerie>,
             },
             { 
                 path: "/vospapiers",

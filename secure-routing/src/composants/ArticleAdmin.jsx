@@ -94,10 +94,9 @@ const ArticleAdmin = () => {
                 </div>
 
                 <button type="button" onClick={updBDD} >Mettre à jour</button>
-                <button type="button" onClick={suppr} >Supprimer article</button>
+                { id != 'new' && <button type="button" onClick={suppr} >Supprimer article</button> }
 
             </form>
-
 
         </>
     )

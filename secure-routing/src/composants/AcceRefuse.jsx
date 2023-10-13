@@ -17,7 +17,7 @@ const AcceRefuse = () => {
         <>
             <h1>Vous n'êtes pas authorisé à continuer</h1>
 
-            <div><button type="button" onClick={reconnect}>Se reconnecter</button><button type="button" onClick={gohome}>Acceuil</button></div>
+            <div><button type="button" onClick={reconnect}>Se reconnecter</button><button type="button" onClick={gohome}>Accueil</button></div>
 
             
         </>

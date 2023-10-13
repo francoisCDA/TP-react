@@ -5,15 +5,15 @@ import AffArticlePanier from "./AffArticlePanier";
 const Panier = () => {
 
     const [votrePanier, setVotrePanier] = useState([]);
+    
+    const [lstPrix, setLstPrix] = useState([]);
+    
+    const [prixTotal, setPrixTotal] = useState([]);
 
     
     useEffect( () => {
 
         let panier = JSON.parse(localStorage.getItem("TP-store_panier_utilisateur")) ?? {};
-
-      //  console.dir(panier);
-
-      //  console.log("panier true : ", Object.keys(panier))
 
         const lstId = Object.keys(panier);
 
@@ -24,18 +24,17 @@ const Panier = () => {
 
     }, [])
 
+    const calcTotal = (prix) => {
+       setLstPrix(prev => [...prev, prix]);
+    }
 
-    useEffect( () => { 
-        
-        if (votrePanier.length > 0) {
- 
-            console.table(votrePanier);
+    useEffect( () => {
+        const valinit = 0
+        const newprixtt = lstPrix.reduce( (somme, prix) => somme + prix, valinit);
+        setPrixTotal(newprixtt);
+    }, [lstPrix])
 
-        }
-
-
-
-    }, [votrePanier])
+    
 
 
     return (
@@ -47,11 +46,14 @@ const Panier = () => {
                     <tr>
                         <th>Article</th>
                         <th>Quantité</th>
-                        <th>Prix</th>
+                        <th>Prix unitaire (HT)</th>
+                        <th>Prix total (HT)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {votrePanier.length == 0 ? <tr><td colSpan={3}>Panier vide</td></tr> : votrePanier.map( (article,i) => <AffArticlePanier key={i} pannier={article} /> ) }
+                    {votrePanier.length == 0 ? <tr><td colSpan={3}>Panier vide</td></tr> : votrePanier.map( (article,i) => <AffArticlePanier key={i} pannier={article} calcTotal={calcTotal} /> ) }
+                    {votrePanier.length > 0 && <tr><td colSpan={3}>Total HT :</td><td>{prixTotal}</td></tr>}
+                    {votrePanier.length > 0 && <tr><td colSpan={3}>Total TTC :</td><td>{prixTotal * 1.2}</td></tr>}
                 </tbody>
 
             </table>

@@ -1,52 +1,67 @@
 import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
-import { ctxPanier } from "../context/panier";
+import { useEffect, useState } from "react";
 
 
 const ArticleDetails = () => {
 
+    const chromium = useNavigate();
+    
     const { id } = useParams();
-
-    const [panierClient,setPanierClient]  = useContext(ctxPanier);
-
+    
+  
     const [thisArticle,setThisArticle] = useState([]) ;
-
+    
     const [quantity, setquantity] = useState(0);
     
-    const chromium = useNavigate();
+    
+    
+    let panier = JSON.parse(localStorage.getItem("TP-store_panier_utilisateur")) ?? {};
+
+    console.log("panier 1 ", panier);
+    
+    if (!panier[`${id}`]) {
+        panier[`${id}`] = 0 ;
+        console.log(`panier.${id} : ` ,panier[`${id}`]);
+    } else {
+        console.log("panier actuelle");
+        console.dir(panier.id);
+    }
+    console.log("panier 2 ", panier.id);
+
+
     
     useEffect( () => {
         axios.get(`http://localhost:5001/magasin/${id}`)
         .then(reponse => {
-          setThisArticle(reponse.data);
+            setThisArticle(reponse.data);
         })
         .catch(error => {
-          console.error("Erreur : ",error)
+            console.error("Erreur : ",error)
         })
-
-        let oldquantite = panierClient.filter( item => item.id == id)
         
-        console.log(oldquantite.length);
+        console.log("panier.id", panier[`${id}`])
+        
+        setquantity(panier[`${id}`])
 
-        if (oldquantite.length == 0) { 
-            setquantity(0);
-        } else {
-            setquantity(oldquantite.quantite);
-        }
-              
-               
-        console.log("quantity : ",quantity);
     }, [])
 
+
+    useEffect(() => {
+         console.log("quantity : ", quantity)
+
+    }, [quantity]);
+
+
     const add = () => { 
-    
+        console.log("hey", quantity);
         if (quantity < thisArticle.disponible ) {
+            console.log("hoo");
     
         const newQuantity = quantity + 1 ;
         setquantity(newQuantity);
         }   
-        console.log(quantity)
+        
     }
 
     const rm = () => { 
@@ -55,16 +70,23 @@ const ArticleDetails = () => {
         const newQuantity = quantity - 1 ;
         setquantity(newQuantity);
         }
-        console.log(quantity)
+        
     }
 
     const saveState = () => {
-        let copiePanier = [...panierClient] ;
-        copiePanier = copiePanier.filter( item => item.id != id );
-        copiePanier[copiePanier.length] = {id: id, quantite: quantity};
-        setPanierClient(copiePanier);
-        console.log(copiePanier);
-        localStorage.setItem("TP-store_PanierClient",JSON.stringify([...panierClient]));
+
+        let panier = JSON.parse(localStorage.getItem("TP-store_panier_utilisateur")) ?? {};
+
+        panier[`${id}`] = quantity ;
+
+        if ( quantity == 0 ) { delete panier[`${id}`] }
+
+        console.log("panier actuelle");
+        console.dir(panier);
+
+        const panierJson = JSON.stringify(panier);
+
+        localStorage.setItem("TP-store_panier_utilisateur", panierJson);
     }
 
     const gohome = () => {
@@ -91,7 +113,7 @@ const ArticleDetails = () => {
             <div>
                 <button type="button" onClick={add}>Ajouter au panier</button>
                 <button type="button" onClick={rm}>Retirer du panier</button>
-                <button type="button" onClick={gohome}>Retour à l'accueil</button>
+                <button type="button" onClick={gohome}>Continuer vos achats</button>
                 <button type="button" onClick={gopanier}>Voir le panier</button>
             </div>
 

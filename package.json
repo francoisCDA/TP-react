@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@radix-ui/themes": "^2.0.0"
+    "@radix-ui/themes": "^2.0.0",
+    "json-server": "^0.17.4"
   }
 }

@@ -67,11 +67,11 @@ const ArticleAdmin = () => {
         axios.delete(`http://localhost:5001/magasin/${id}`)
         .then(reponse => {
             console.log("article supprimé") 
+            chromium("/admin");
         })
         .catch(error => {
             console.error("Erreur : ",error)
         })
-        chromium("/admin");
     }
 
 

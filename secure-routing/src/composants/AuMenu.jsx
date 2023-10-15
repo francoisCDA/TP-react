@@ -1,14 +1,11 @@
 import { useNavigate, Outlet } from "react-router-dom"
-import { useState } from "react";
 
 
 const AuMenu = () => {
 
     const netscape = useNavigate();
 
-    const [panierClient,setPanierClient] = useState([]);
-
-    return (
+     return (
         <>
             <header style={{display:  "flex"}}>
                 <button type="button" onClick={() => netscape('/')}>Accueil</button>

@@ -48,7 +48,7 @@ const Reglages = () => {
 
 
         <Flex className='justify-around'>
-            <Flex align="center" >
+            <Flex align="center" className='border-4 p-3 rounded-xl' >
                 <Flex direction="column" >
                     <Button  variant='surface' disabled={(level.nbEssais < 6)} className='rounded-b-none mt-3 w-16 h-16 text-6xl' onClick={setNbEssaisDec}>-</Button>
                     <Text className=' bg-neutral-200 py-4' size="8" align="center" as="div" weight="bold">{level.nbEssais}</Text>

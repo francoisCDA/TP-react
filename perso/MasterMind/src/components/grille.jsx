@@ -16,6 +16,8 @@ const Grille = ({nbLignes, combinaison}) => {
     const [proposition,setProposition] = useState(new Array(combinaison.length).fill('NaC')); 
     const [progression,setProgression] = useState([]);
 
+    const [propOk,setPropOk] = useState(false);
+
 
     const chkProp = () => {
       
@@ -26,8 +28,9 @@ const Grille = ({nbLignes, combinaison}) => {
         return true ;
     }
 
+
     const firstLign = () => {
-        if (chkProp() || progression.length == nbLignes ) { return combinaison }
+        if (propOk || progression.length == nbLignes ) { return combinaison }
 
         return ((new Array(combinaison.length)).fill('NaC'))
     }
@@ -36,7 +39,7 @@ const Grille = ({nbLignes, combinaison}) => {
         
         let ret = [];
         
-        for (let i = 0 ; i < (nbLignes - progression.length ) ; i++) {
+        for (let i = 0 ; i < (nbLignes - progression.length -1 ) ; i++) {
                 ret.push((new Array(combinaison.length)).fill(-2));
         
         }
@@ -67,9 +70,7 @@ const Grille = ({nbLignes, combinaison}) => {
 
 
     const valideProposition = () => {
-
         setProgression(prev => [...prev, proposition]);
-
     }
 
 
@@ -91,6 +92,8 @@ const Grille = ({nbLignes, combinaison}) => {
     }, [combinaison])
 
     useEffect( () => {
+        const victoire = chkProp();
+        setPropOk(victoire);
         setProposition(((new Array(combinaison.length)).fill('NaC')))
     }, [progression])
     
@@ -111,7 +114,7 @@ const Grille = ({nbLignes, combinaison}) => {
 
                 <Flex mb="3">
                     { proposition.map( (couleur,i) => <Place key={i} couleur={couleur} playable={true} useCallback={aJoue} ind={i} />)}
-                    { !chkProp() && <Button ml="3" size="3" disabled={proposition.includes('NaC')} onClick={valideProposition}>Valider</Button> }
+                    { !propOk && <Button ml="3" size="3" disabled={proposition.includes('NaC')} onClick={valideProposition}>Valider</Button> }
                 </Flex>
                 }
 

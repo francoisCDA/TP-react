@@ -9,7 +9,7 @@ const Place = ({couleur, playable, useCallback, ind}) => {
     }
 
     return (
-        <Flex width="8" height="8" mx="4" justify="center" align="center" style={{backgroundColor: 'grey'}} onClick={backInd}>
+        <Flex width="8" height="8" mx="4" justify="center" align="center" style={{backgroundColor: 'grey'}} className=" rounded-lg" onClick={backInd}>
             {couleur == 'NaC' ? <PlaceVide /> : <PlaceJouee couleur={couleur} />}  
         </Flex> 
     )

@@ -15,5 +15,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     animation: changeColor 60s infinite linear;
+
+    border-radius: 10px;
 }
 

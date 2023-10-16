@@ -53,36 +53,33 @@ useEffect( () => {
   setActivColor('rgba(0, 0, 0, 0)');
 }, [level]);
 
-
+//style={{marginLeft: `${(9 - combinaison.length) * 38 + 30}px`}} 
   return (
     <>
 <ActivColor.Provider value={[activColor, setActivColor]}>
-    <Flex gap="9" justify="center" align="center" className='h-[100vh]'>
-        <Flex width="100%" direction="column" justify="start" height="98%" ml="9" mt="3" style={{marginLeft: `${(9 - combinaison.length) * 38 + 30}px`}}>
-          <Container className={styles.shadow}>
+    <Flex gap="9" justify="center" align="center" className='h-[100vh] w-[80%] m-auto'>
+        <Flex direction="column" justify="start" height="98%" ml="9" mt="3" className=' rounded-3xl shadow-2xl'>
+         
             <Grille nbLignes={level.nbEssais} combinaison={combinaison} />
-          </Container>
-          
         </Flex>
        
         <Flex className='w-[60%] mx-10 h-[100vh]' justify="between" direction="column" >
-          <Box className={styles.shadow2}>
-          <Box className=' mx-auto w-96 h-96 bg-slate-300 rounded-full relative' >
+         
+          <Box className=' w-96 h-96 bg-slate-300 rounded-full relative mt-[10vh] shadow-2xl' >
             <Pions colorCodes={colorCodes.slice(0,level.nbCouleurs)} />
           </Box>
-          </Box>
-        <Box className={styles.shadow3}>
-          <Box className='mb-16 bg-slate-300 rounded-3xl px-9 py-4'>
+         
+        
+          <Box className='mb-16 bg-slate-300 rounded-3xl px-9 py-4 shadow-2xl'>
 <Level.Provider value={[level,setLevel]}>
-  
+            
             <Reglages />
 </Level.Provider>
           </Box>
-        </Box>
+        
         </Flex>
-      </Flex>
+    </Flex>
 </ActivColor.Provider>
-  
 
     </>
   )

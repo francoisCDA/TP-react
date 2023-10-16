@@ -61,9 +61,14 @@ li:first-child {
 form {
   display: flex;
   flex-direction: column;
+
+  & div {
+    margin-bottom: 0.5em;
+  }
  
   & button {
     background-color: green;
+    margin-top: 1em;
     font-weight: bold;
     color: white;
   }

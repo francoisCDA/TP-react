@@ -1,12 +1,14 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { disconnect } from "../auth/authSlice"
 import { useNavigate } from "react-router-dom"
+import AffRecette from "./AffRecette"
 
 const LstRecettes = () => {
 
-    const netscape = useNavigate()
+    const netscape = useNavigate();
 
-    const dispatch = useDispatch()
+    const lesRecettes = useSelector(state => state.recette.recipies);
+    const dispatch = useDispatch();
 
     const gohome = () => {
         dispatch(disconnect()),
@@ -28,7 +30,7 @@ const LstRecettes = () => {
                 </div>
 
                 <hr />
-                <div>maper les recettes</div>
+                { lesRecettes.length == 0 ? <div>aucune recette</div> : lesRecettes.map( (recette,i) => <AffRecette key={i} recette={recette} />) }
              
             </div>
         

@@ -19,12 +19,42 @@ const FormRecettes = () => {
     const refingredients = useRef();
     const refaddingredient = useRef();
 
-    const addRecette = () => {
+    const addRecet = async () => {
 
         const newRecette = {
-
+            id: `${Date.now()}`,
+            title: reftitle.current.value,
+            instructions: refinstructions.current.value,
+            cookTime: refcooktime.current.value,
+            prepTime: refpreptime.current.value,
+            ingredients: Array.from(refingredients.current.selectedOptions, option => option.value)
         }
 
+        const montoken = localStorage.getItem("TP_recette_token")
+        
+        try {
+            const reponse = await fetch(`${BASE_DB_URL}/recettes.json?auth=${montoken}`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify(newRecette)
+            })
+            
+            if (!reponse.ok) {
+                throw new Error("Problème d'envoie de la recette" + reponse.status)
+            }
+            
+            const data = await reponse.json();
+            console.log(data);
+
+            dispatch(addRecette(newRecette));
+
+            netscape('/lesRecettes');
+
+        } catch (error) {
+            console.error(error.message)
+        }
     }
 
 
@@ -47,12 +77,12 @@ const FormRecettes = () => {
             })
 
             if (!reponse.ok) {
-                console.dir(reponse);
-                throw new Error("problème lors de l'ajout d'ingrédient");
+                throw new Error("problème lors de l'ajout d'ingrédient" + reponse.status);
             }
 
             const data = await reponse.json();
             console.log(data);
+
             dispatch(addIngredient(newIngredient));
 
         } catch(error) {
@@ -85,11 +115,11 @@ const FormRecettes = () => {
                 <div className="grpForm">
                     <label htmlFor="ingredients">Liste d'ingrédients</label>
                     <select name="ingredients" id="ingredients" ref={refingredients} multiple>
-                        {lstIngredients.length < 0 ? <option value={0}>pas d'ingrédient</option> : lstIngredients.map( (ingredient) => <OptionIngredient key={ingredient.id} ingredient={ingredient}  /> ) }
+                        {lstIngredients.length < 0 ? <option value={0}>pas d'ingrédient</option> : lstIngredients.map( (ingredient,i) => <OptionIngredient key={i} ingredient={ingredient} /> ) }
                         
                     </select>
                 </div>
-                <button type="button" onClick={addRecette}>valider</button>
+                <button type="button" onClick={addRecet}>Ajouter recette</button>
             </form>
 
             <form action="#">
@@ -98,7 +128,7 @@ const FormRecettes = () => {
                     <label htmlFor="title">Nom de l'ingrédient'</label>
                     <input type="text" name="title" id="title" ref={refaddingredient} />
                 </div>
-                <button type="button" onClick={addIngre}>Ajouter</button>
+                <button type="button" onClick={addIngre}>Ajouter ingrédient</button>
             </form>
         </>
     )

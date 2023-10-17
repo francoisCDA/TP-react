@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { setAuthMode } from "./auth/authSlice";
+import { setAuthMode, setUser } from "./auth/authSlice";
 import { useRef } from "react";
 import { SIGN_IN_URL, SIGN_UP_URL } from "../firebaseConfig";
 
@@ -39,6 +39,10 @@ const SignForm = () => {
 
             const data = await response.json()
             console.log(data);
+
+            localStorage.setItem("token", data.idToken);
+            dispatch(setUser(data))
+
 
         } catch(error) {
             console.error(error.message);

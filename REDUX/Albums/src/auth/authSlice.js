@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { SIGN_IN_URL, SIGN_UP_URL } from "../firebaseConfig";
+import axios from "axios";
 
 
 export const axiosSignUp = createAsyncThunk(
@@ -8,10 +9,15 @@ export const axiosSignUp = createAsyncThunk(
 
         const credentials = {...identifiants, returnSecureToken: true}
 
-        const reponse = await axios.post(SIGN_UP_URL,credentials);
-        return reponse.data;
+        try {
+            const reponse = await axios.post(SIGN_UP_URL,credentials);
+            return reponse.data;
+        } catch (error) {
+            console.error(error);
+        }
     }
 )
+
 
 export const axioSignIn = createAsyncThunk(
     "auth/axiosSignIn",
@@ -19,8 +25,12 @@ export const axioSignIn = createAsyncThunk(
 
         const credentials = {...identifiants, returnSecureToken: true}
 
-        const reponse = await axios.post(SIGN_IN_URL,credentials);
-        return reponse.data;
+        try {
+            const reponse = await axios.post(SIGN_IN_URL,credentials);
+            return reponse.data;
+        } catch (error) {
+            console.error(error)
+        }
     }
 )
 
@@ -36,8 +46,8 @@ const authSlice = createSlice({
             state.authMode = action.payload
         },
         disconnect: (state,action) => {
-            state.user = null
-            localStorage.removeItem("eAlbum_token")
+            state.user = null ;
+            localStorage.removeItem("eAlbum_token") ;
         }
    },
    extraReducers: (builder) => {

@@ -38,7 +38,7 @@ export const axioSignIn = createAsyncThunk(
 const authSlice = createSlice({
    name: "auth",
    initialState: {
-        user: null,
+        admin: false,
         authMode: ""
    },
    reducers: {
@@ -46,21 +46,24 @@ const authSlice = createSlice({
             state.authMode = action.payload
         },
         disconnect: (state,action) => {
-            state.user = null ;
+            state.admin = false ;
             localStorage.removeItem("eAlbum_token") ;
+        },
+        setAdmin : (state,action) => {
+            state.admin = true ;
         }
    },
    extraReducers: (builder) => {
     builder.addCase(axiosSignUp.fulfilled, (state, action) => {
         localStorage.setItem("eAlbum_token",action.payload.idToken)
-        state.user = action.payload
+        state.admin = true
     })
     builder.addCase(axioSignIn.fulfilled, (state, action) => {
         localStorage.setItem("eAlbum_token",action.payload.idToken)
-        state.user = action.payload
+        state.admin = true
     }) 
    }
 })
 
-export const { setAuthMode, disconnect } = authSlice.actions
+export const { setAuthMode, disconnect, setAdmin } = authSlice.actions
 export default authSlice.reducer;

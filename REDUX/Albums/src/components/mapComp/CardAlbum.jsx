@@ -1,43 +1,36 @@
-import { Card, CardHeader, CardMedia, CardContent, CardActions, Typography, Box, Rating, IconButton, Button } from '@mui/material'
+import { Card, CardMedia, CardContent, CardActions, Typography, Box, Rating, IconButton, Button } from '@mui/material'
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDispatch } from 'react-redux';
 import { axiosSupprAlbum, setMode, setTarget } from '../../eAlbums/eAlbumSlice';
 
-//import { useEffect } from 'react'
 
+const CardAlbum = ({album, idAlbum, admin, callBack}) => {
 
-const CardAlbum = ({album, idAlbum, admin}) => {
+    const dispatch = useDispatch() ;
 
-    // useEffect(() => {
-    //     console.log(album.title)
-    // }, [])
-
-    const dispatch = useDispatch()
 
 
     const rmAlbum = () => {
         const token = localStorage.getItem("eAlbum_token");
         const albumToRm = idAlbum;
 
-        //console.log(idAlbum);
-
         dispatch(axiosSupprAlbum({token,albumToRm}));
     }
 
     const editAlbum = () => {
-        dispatch(setTarget(idAlbum))
-        dispatch(setMode('edit'))
+        dispatch(setTarget(idAlbum));
+        dispatch(setMode('edit'));
+        callBack(album.score);
     }
 
 
     return (
-        <Card sx={{maxWidth: 300, borderRadius: '15px', m:'0.4rem' }}>
-            <CardHeader title={album.title} />
+        <Card sx={{maxWidth: 300, borderRadius: '15px', m:'0.4rem', order: `${album.order ?? 0}` }}>
+            <Typography variant='body' sx={{p:1, display: 'inline-block', my:'.2rem'}}>{album.title}</Typography>
             <Box sx={{display: 'flex', justifyContent:"center"}}>
-                
-            <CardMedia component="img"  image={album.coverURL} alt={`couverture de l'album ${album.title}`} sx={{width: '194px', height:'194px'}} /> 
+                <CardMedia component="img"  image={album.coverURL} alt={`couverture de l'album ${album.title}`} sx={{width: '194px', height:'194px'}} /> 
             </Box>
 
             <CardContent>

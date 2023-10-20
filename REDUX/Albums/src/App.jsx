@@ -9,26 +9,26 @@ import { disconnect, setAdmin, setAuthMode } from './auth/authSlice';
 import Modal from './modal/Modal';
 import FormConnect from './components/FormConnect';
 
-import { AppBar, Button, Container, Box, Dialog, DialogContent,DialogContentText, DialogTitle,DialogActions, TextField, Rating, MenuItem, Select,FormControl,InputLabel } from '@mui/material';
+import { AppBar, Button, Container, Box, Dialog, DialogContent,DialogContentText, DialogTitle,DialogActions, TextField, Rating, Typography } from '@mui/material';
 import { useEffect, useRef,useState } from 'react';
-import { axiosGetCollection, axiosPatchAlbum, axiosPostAlbum, setMode, setTarget } from './eAlbums/eAlbumSlice';
+import { axiosGetCollection, axiosPatchAlbum, axiosPostAlbum, setMode, setTarget, trierScoreCROI, trierScoreDCROI } from './eAlbums/eAlbumSlice';
 
 
 import CardAlbum from './components/mapComp/CardAlbum';
+import MenuFiltre from './components/MenuFiltre';
 
-
-//import './App.css'
 
 function App() {
 
   const admin = useSelector(state => state.auth.admin);
   const formSign = useSelector(state => state.auth.authMode);
   
-  const formAlbum = useSelector(state => state.album.formMode) ;
-  const albumArray = useSelector(state => state.album.albums) ;
+  const formAlbum = useSelector(state => state.album.formMode);
+  const albumArray = useSelector(state => state.album.albums);
+  const filtreMode = useSelector(state => state.album.trieMode);
  
-  const alTKey = useSelector(state => state.album.albumSelected) ;
-  const alTget = alTKey ? albumArray[alTKey] : false;
+  const alTKey = useSelector(state => state.album.albumSelected);
+  const alTget = alTKey ? albumArray[alTKey] : false ;
 
   const refnom = useRef();
   const refartist = useRef();
@@ -103,7 +103,29 @@ useEffect( () => {
     dispatch(setTarget(false));
   }
 
- {/* <Modal cbFermer={dispatch(setAuthMode(""))} ><FormConnect /></Modal> */}
+  useEffect( () => {
+    console.log('formAlbum : ',formAlbum);
+    console.log('filtreMode : ',filtreMode);
+    if (formAlbum == '') {
+      changeScore(0);
+      if (filtreMode != false) {
+        setTimeout( () => {
+          if (filtreMode == 'CROI' ) { dispatch(trierScoreCROI())}
+          if (filtreMode == 'DCROI' ) { dispatch(trierScoreDCROI())}
+          if (filtreMode == 'AZ' ) { dispatch(trierAZ())}
+          if (filtreMode == 'ZA' ) { dispatch(trierZA())}
+        },100)
+      }
+    }
+  }, [formAlbum])
+
+
+useEffect( () => {
+  console.log('filtreMode : ',filtreMode)
+}, [filtreMode])
+
+
+
   return (
     <>
 
@@ -120,13 +142,13 @@ useEffect( () => {
         <TextField sx={{mt:'0.4rem'}} label="Prix" type='number' fullWidth inputRef={refprix} defaultValue={ alTget ? alTget.price : ''} />
         <Box sx={{display: 'flex', mt: '0.5rem', ml: '0.5rem'}}>
           <DialogContentText mr={'0.5rem'}>Note</DialogContentText>
-          <Rating name="score" precision={0.5} onChange={(event,newValue) => newscore(newValue)} defaultValue={alTget ? alTget.score : 0} />
+          <Rating name="score" precision={0.5} onChange={(event,newValue) => newscore(newValue)} value={score}/>
         </Box>
       </DialogContent>
 
       <DialogActions>
         <Button onClick={closeModal}>Annuler</Button>
-        <Button onClick={sendAlbum}>Ajouter</Button>
+        <Button onClick={sendAlbum}>{ formAlbum == 'add' ? 'Ajouter' : 'Mettre à jour' }</Button>
       </DialogActions>
     </Dialog>
 
@@ -134,35 +156,18 @@ useEffect( () => {
 
     <Container>
         <header>
-      <AppBar position='static'sx={{p: '0.5em' }} >
+      <AppBar position='static' sx={{p: '0.5em', backgroundColor: 'DarkViolet' }} >
         <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <Box sx={{display: 'flex', alignItems: 'center'}}>
-            <Box>
+            <Typography  variant="h6" component="div" sx={{ flexGrow: 1, mx: '1em' }}>
               eAlbum
-            </Box>
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel id="trier">Age</InputLabel>
-                <Select
-                  labelId="trier"
-                  id="trier"
-                  value={0}
-                  label="Trier"
-                  onChange={() => {}}
-                >
-                <MenuItem value={0}>Trier les albums</MenuItem>
-                <MenuItem value={"alpha"}>Ordre alphabétique</MenuItem>
-                <MenuItem value={"zeta"}>Inverse alphabétique</MenuItem>
-                <MenuItem value={"worstfirst"}>score croissant</MenuItem>
-                <MenuItem value={"bestfirst"}>score décroissant</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+            </Typography>
+            <MenuFiltre />
           </Box>
 
           <Box>
-            { admin && <Button sx={{display: 'inline-block'}} variant="contained" color='secondary' type='button' onClick={() => dispatch(setMode("add")) }>Ajouter un album</Button>}
-            <Button sx={{display: 'inline-block', ml: '0.5em'}} variant="contained" color='success' type='button' onClick={onclickaction} >{admin ? "Déconnexion" : "S'identifier"}</Button>
+            { admin && <Button sx={{display: 'inline-block'}} variant="contained" color='info' type='button' onClick={() => dispatch(setMode("add")) }>Ajouter un album</Button>}
+            <Button sx={{display: 'inline-block', ml: '0.5em'}} variant="contained" color={admin ? 'warning' : 'success'} type='button' onClick={onclickaction} >{admin ? "Déconnexion" : "S'identifier"}</Button>
           </Box>  
 
         </Box>
@@ -171,8 +176,8 @@ useEffect( () => {
 
 
 
-    <Container sx={{display: 'flex', justifyContent: "center", flexWrap: 'wrap', backgroundColor: 'lightgrey'}}>
-      {Object.keys(albumArray).map( cle => <CardAlbum key={cle} album={albumArray[cle]} idAlbum={cle} admin={admin} /> )}
+    <Container sx={{py: 4, display: 'flex', justifyContent: "center", flexWrap: 'wrap', backgroundColor: 'MidnightBlue'}}>
+      {Object.keys(albumArray).map( cle => <CardAlbum key={cle} album={albumArray[cle]} idAlbum={cle} admin={admin} callBack={(rating) => changeScore(rating)} /> )}
     </Container>
 
     </Container>

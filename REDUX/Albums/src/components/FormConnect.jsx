@@ -20,8 +20,6 @@ const FormConnect = () => {
             password: refpasswd.current.value
         }
 
-        //console.dir(credential);
-
         if (typeConnect =="signIn") {
             dispatch(axioSignIn(credential))
         } else {
@@ -37,16 +35,6 @@ const FormConnect = () => {
         <>
 
             <form>
-{/*                 <div className="grpForm">
-                    <label htmlFor="email">Courriel</label>
-                    <input type="email" id="email" name="email" ref={refemail} />
-                </div>
-                <div className="grpForm">
-                    <label htmlFor="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" ref={refpasswd} />
-                </div>
-                <button type="button" onClick={sign}>{typeConnect == "signIn" ? "Se connecter" : "Créer un compte"}</button> */}
-
 
                 <Box sx={{display: 'Flex', justifyContent: 'center', mb: '2em'}} >
                     <TextField id="email" label="Email" variant="outlined" autoComplete="email" required inputRef={refemail} />

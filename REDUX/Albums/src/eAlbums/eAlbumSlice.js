@@ -21,7 +21,6 @@ export const axiosPostAlbum = createAsyncThunk(
         try {
     
             const reponse = await axios.post(`${FIREBASE_URL}/eAlbums.json/?auth=${token}`,album)
-          //  return {...album, id: reponse.data.name}
             return { id : reponse.data.name, album};
         } catch (error) {
             console.error(error)
@@ -58,9 +57,10 @@ export const axiosPatchAlbum = createAsyncThunk(
 const eAlbumSlice = createSlice({
     name: "album",
     initialState: {
-        albums:[],
+        albums:{},
         albumSelected: false,
-        formMode: ''
+        formMode: '',
+        trieMode: false
     },
     reducers: {
         setTarget: (state, action) => {
@@ -68,6 +68,49 @@ const eAlbumSlice = createSlice({
         },
         setMode: (state, action) => {
             state.formMode = action.payload ;
+        },
+        trierAZ: (state, action) => {
+            let titreList = Object.keys(state.albums).map( key => state.albums[key].title);
+            titreList.sort();
+
+            for (let cle in state.albums ) {
+                state.albums[cle].order = titreList.indexOf(state.albums[cle].title)
+            }
+            state.trieMode = 'AZ' ;
+        },
+        trierZA: (state, action) => {
+            let titreList = Object.keys(state.albums).map( key => state.albums[key].title);
+            titreList.sort();
+            titreList = titreList.reverse();
+
+            for (let cle in state.albums ) {
+                state.albums[cle].order = titreList.indexOf(state.albums[cle].title)
+            }
+            state.trieMode = 'ZA' ;
+        },
+        trierScoreCROI: (state, action) => {
+            let scoreList = Object.keys(state.albums).map( key => state.albums[key].score);
+            scoreList.sort((a,b) => a - b );
+
+            for (let cle in state.albums ) {
+                state.albums[cle].order = scoreList.indexOf(state.albums[cle].score)
+            }
+            state.trieMode = 'CROI' ;
+        },
+        trierScoreDCROI: (state, action) => {
+            let scoreList = Object.keys(state.albums).map( key => state.albums[key].score);
+            scoreList.sort((a,b) => b - a );
+
+            for (let cle in state.albums ) {
+                state.albums[cle].order = scoreList.indexOf(state.albums[cle].score)
+            }               
+            state.trieMode = 'DCROI' ;
+        },
+        trieClear: (state, action) => {
+            for (let cle in state.albums ) {
+                delete state.albums[cle].order ;
+            }
+            state.trieMode = false;
         }
     
     },
@@ -76,8 +119,6 @@ const eAlbumSlice = createSlice({
             state.albums = action.payload;
         })
         builder.addCase(axiosPostAlbum.fulfilled, (state,action) => {
-            //console.log(action.payload);
-            //state.albums.push(action.payload);
             state.albums[action.payload.id] = action.payload.album;
             state.formMode = '' ;
         })
@@ -91,5 +132,5 @@ const eAlbumSlice = createSlice({
 
 })
 
-export const { setTarget, setMode } = eAlbumSlice.actions
+export const { setTarget, setMode, trieMode, trierScoreCROI, trierScoreDCROI, trierAZ, trierZA, trieClear } = eAlbumSlice.actions
 export default eAlbumSlice.reducer

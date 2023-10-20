@@ -5,8 +5,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 function pokeExtractData(dataBrut) {
 
-    console.dir(dataBrut)
-
     const newPoke = {};
 
     newPoke.id = dataBrut.id
@@ -14,9 +12,9 @@ function pokeExtractData(dataBrut) {
     newPoke.image = dataBrut.sprites.front_default;
     newPoke.height = dataBrut.height;
     newPoke.weight = dataBrut.weight;
-    newPoke.xp = dataBrut.base_experience ;
-    newPoke.abilities = dataBrut.abilities.map( a => a.ability.name) ;
-    newPoke.type = dataBrut.types.map( t => t.type.name) ;
+    newPoke.xp = dataBrut.base_experience;
+    newPoke.abilities = dataBrut.abilities.map( a => a.ability.name);
+    newPoke.types = dataBrut.types.map( t => t.type.name);
     newPoke.moves = dataBrut.moves.map( m => m.move.name);
 
     return newPoke;
@@ -56,24 +54,34 @@ const pokeSlice = createSlice({
         pokeZoo:[],
         pokedex:[],
         pokedetail: false,
-        pokecategorie:[]
+        pokeFiltres:[]
     },
     reducers: {
         addToPokedex: (state,action) => {
             state.pokedex.push(state.pokedetail);
+        },
+        resetZoo: (state,action) => {
+            state.pokeZoo = [] ;
         }
     },
     extraReducers: (builder) => {
         builder.addCase(axiosGetPopulation.fulfilled, (state,action) => {
-          //  console.log(action.payload)
             state.pokeworld = action.payload ;
         })
         builder.addCase(axiosGetPokemonByURL.fulfilled, (state,action) => {
-            state.pokeZoo.push(pokeExtractData(action.payload));
+            const pokeDataClean = pokeExtractData(action.payload)
+
+            for (let type of pokeDataClean.types ) { 
+                if (!state.pokeFiltres.includes(type)) {
+                    state.pokeFiltres.push(type);
+                }
+            }
+            
+            state.pokeZoo.push(pokeDataClean);
         })
     }
     
 })
 
-export const { addToPokedex } = pokeSlice.actions
+export const { addToPokedex, resetZoo } = pokeSlice.actions
 export default pokeSlice.reducer

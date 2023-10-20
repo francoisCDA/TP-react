@@ -3,11 +3,31 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 
 
+function pokeExtractData(dataBrut) {
+
+    console.dir(dataBrut)
+
+    const newPoke = {};
+
+    newPoke.id = dataBrut.id
+    newPoke.nom = dataBrut.name;
+    newPoke.image = dataBrut.sprites.front_default;
+    newPoke.height = dataBrut.height;
+    newPoke.weight = dataBrut.weight;
+    newPoke.xp = dataBrut.base_experience ;
+    newPoke.abilities = dataBrut.abilities.map( a => a.ability.name) ;
+    newPoke.type = dataBrut.types.map( t => t.type.name) ;
+    newPoke.moves = dataBrut.moves.map( m => m.move.name);
+
+    return newPoke;
+}
+
+
 export const axiosGetPopulation = createAsyncThunk(
     "pokemon/axiosGetPopulation",
     async () => {
         try {
-            const reponse = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=300') ;
+            const reponse = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=3') ;
             return reponse.data.results
         } catch (error) {
             console.error(error.message);
@@ -15,12 +35,12 @@ export const axiosGetPopulation = createAsyncThunk(
     }
 )
 
-export const axiosGetPokemonById = createAsyncThunk(
-    "pokemon/axiosGetPokemonById",
-    async (url) => {
+export const axiosGetPokemonByURL = createAsyncThunk(
+    "pokemon/axiosGetPokemonByURL",
+    async ({ind,url}) => {
         try {
-            const reponse = await axios.get(`url`) ;
-            return reponse.data
+            const reponse = await axios.get(`${url}`) ;
+            return {...reponse.data, id: ind}
         } catch (error) {
             console.log(error.message)
         }
@@ -33,8 +53,9 @@ const pokeSlice = createSlice({
     name: "pokemon",
     initialState: {
         pokeworld:[],
+        pokeZoo:[],
         pokedex:[],
-        pokedetail:[],
+        pokedetail: false,
         pokecategorie:[]
     },
     reducers: {
@@ -47,8 +68,8 @@ const pokeSlice = createSlice({
           //  console.log(action.payload)
             state.pokeworld = action.payload ;
         })
-        builder.addCase(axiosGetPokemonById.fulfilled, (state,action) => {
-            state.pokedetail = action.payload ;
+        builder.addCase(axiosGetPokemonByURL.fulfilled, (state,action) => {
+            state.pokeZoo.push(pokeExtractData(action.payload));
         })
     }
     

@@ -3,24 +3,29 @@ import { useEffect, useState } from "react"
 import { Card,Typography,Box, CardMedia, CardActions, CardContent } from "@mui/material"
 
 
-const PokeCard = ({pokemon,filtre}) => {
+const PokeCard = ({pokemon, ind, filtre}) => {
 
-    const [monPokemon,setMonPokemon] = useState({})
+    const [monPokemon,setMonPokemon] = useState(false)
+
+
 
     useEffect(() => {
+
+        
+
         axios.get(pokemon.url)
         .then( reponse => {
 
             const newPoke = {};
 
-            newPoke.id = reponse.data.order;
+            newPoke.id = ind + 1;
             newPoke.nom = reponse.data.name;
             newPoke.image = reponse.data.sprites.front_default;
 
-            console.dir(newPoke);
+           // console.dir(newPoke);
             setMonPokemon(newPoke);
 
-            console.dir(reponse.data)
+           // console.dir(reponse.data)
         })
         .catch(error => {
             console.error('erreur : ', error)

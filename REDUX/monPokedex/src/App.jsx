@@ -3,27 +3,28 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import NavBarPokemon from './components/NavBarPokemon';
-import { Container,Box } from '@mui/material';
+import { Container,Box, Dialog } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { axiosGetPokemonByURL, axiosGetPopulation, resetZoo } from './slice/pokeSlice';
-//import PokeCard from './components/PokeCard';
 import PokeCardDumb from './components/PokeCardDumb';
 import MuiSelectFiltre from './components/MuiFilter';
+import PokeModal from './components/PokeModal';
+
+import './index.css'
 
 function App() {
 
   const dispatch = useDispatch()
- // const population = useSelector(state => state.pokemon.pokeworld)
   const pokeZoo = useSelector(state => state.pokemon.pokeZoo)
-  //const pokeFiltre = useSelector (state => state.pokemon.pokeFiltres)
+  const pokeDetail = useSelector(state => state.pokemon.pokedetail)
 
   const [filtre,setFiltre] = useState('');
 
   useEffect( () => {
 
-    // dispatch(axiosGetPopulation());
+   
     dispatch(resetZoo())
 
     axios.get('https://pokeapi.co/api/v2/pokemon?limit=30')
@@ -47,26 +48,28 @@ function App() {
   },[])
 
 
-  useEffect( () => {
-    console.log(filtre)
-   // console.dir(pokeFiltre)
-    
-  },[filtre])
-
 
   return (
     <>
+
       <Container maxWidth='xl' >
         <header>
           <NavBarPokemon />
         </header>
         
-        <MuiSelectFiltre filtre={filtre} callback={(filtre) => setFiltre(filtre) } />
 
-        <Box sx={{py: 4, display: 'flex', justifyContent: "center", flexWrap: 'wrap', backgroundColor: 'bisque'}}>
-          {/* { population.length == 0 ? <Container>Chargement</Container> : population.map( (pokemon,i) => <PokeCard key={i} pokemon={pokemon} ind={i} filtre={''} /> ) }           */}
-          { pokeZoo.length == 0 ? <Container>Chargement</Container> : pokeZoo.map( (pokemon,i) => <PokeCardDumb key={i} pokemon={pokemon} filtre={filtre} /> ) }          
-        </Box>
+        { !pokeDetail ?
+          <>
+          <MuiSelectFiltre filtre={filtre} callback={(filtre) => setFiltre(filtre) } />
+          
+          <Box sx={{py: 4, display: 'flex', justifyContent: "center", flexWrap: 'wrap'}}>
+            {/* { population.length == 0 ? <Container>Chargement</Container> : population.map( (pokemon,i) => <PokeCard key={i} pokemon={pokemon} ind={i} filtre={''} /> ) }           */}
+            { pokeZoo.length == 0 ? <Container>Chargement</Container> : pokeZoo.map( (pokemon,i) => <PokeCardDumb key={i} pokemon={pokemon} filtre={filtre} /> ) }          
+          </Box>
+          </>
+        :
+          <PokeModal pokedetail={pokeDetail} />
+        }
 
       </Container>
         

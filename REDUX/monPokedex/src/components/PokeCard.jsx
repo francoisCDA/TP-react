@@ -11,7 +11,6 @@ const PokeCard = ({pokemon, ind, filtre}) => {
 
     useEffect(() => {
 
-        
 
         axios.get(pokemon.url)
         .then( reponse => {

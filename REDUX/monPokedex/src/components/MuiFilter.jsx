@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, Select, Container, MenuItem } from "@mui/material"
+import { FormControl, FormHelperText, InputLabel, Select, Container, MenuItem } from "@mui/material"
 import { useSelector } from "react-redux"
 
 const MuiSelectFiltre = ({filtre, callback}) => {
@@ -8,17 +8,18 @@ const MuiSelectFiltre = ({filtre, callback}) => {
     return (
         <Container maxWidth={"sm"} sx={{my:2}}>
             <FormControl fullWidth>
-                <InputLabel id="filtre">Filtrer par type de pokemon</InputLabel>
+                <InputLabel id="filtre">Type</InputLabel>
                 <Select
                     labelId="filtre"
                     id="filtre"
                     value={filtre}
-                    label="Age"
+                    label="Filtre"
                     onChange={(e) => callback(e.target.value)}
                 >
                     <MenuItem value={''}>Aucun filtre</MenuItem>
                     { pokefiltres.length != 0 && pokefiltres.map( (pf,i) => <MenuItem key={i} value={pf} sx={{textTransform:"capitalize"}} >{pf}</MenuItem> ) }
                 </Select>
+                <FormHelperText>Filtrer par type de pokemon</FormHelperText>
             </FormControl>
         </Container>   
     )

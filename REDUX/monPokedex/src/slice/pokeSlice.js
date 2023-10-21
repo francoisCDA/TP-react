@@ -62,6 +62,9 @@ const pokeSlice = createSlice({
         },
         resetZoo: (state,action) => {
             state.pokeZoo = [] ;
+        },
+        setPokeDetail: (state,action) => {
+            state.pokedetail = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -83,5 +86,5 @@ const pokeSlice = createSlice({
     
 })
 
-export const { addToPokedex, resetZoo } = pokeSlice.actions
+export const { addToPokedex, resetZoo, setPokeDetail } = pokeSlice.actions
 export default pokeSlice.reducer

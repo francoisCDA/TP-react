@@ -39,7 +39,6 @@ export const axiosGetPokemonByURL = createAsyncThunk(
 const pokeSlice = createSlice({
     name: "pokemon",
     initialState: {
-        pokeworld:[],
         pokeZoo:[],
         pokedex:[],
         pokedetail: false,

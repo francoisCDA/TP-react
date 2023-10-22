@@ -59,11 +59,11 @@ function App() {
 
         { !pokeDetail ?
           <>
-          <MuiSelectFiltre filtre={filtre} callback={(filtre) => setFiltre(filtre) } />
-          
-          <Box sx={{py: 4, display: 'flex', justifyContent: "center", flexWrap: 'wrap'}}>
-            { pokeZoo.length == 0 ? <Container>Chargement</Container> : pokeZoo.map( (pokemon,i) => <PokeCardDumb key={i} pokemon={pokemon} filtre={filtre} /> ) }          
-          </Box>
+            <MuiSelectFiltre filtre={filtre} callback={(filtre) => setFiltre(filtre) } />
+            
+            <Box sx={{py: 4, display: 'flex', justifyContent: "center", flexWrap: 'wrap'}}>
+                { pokeZoo.length == 0 ? <Container>Chargement</Container> : pokeZoo.map( (pokemon,i) => <PokeCardDumb key={i} pokemon={pokemon} filtre={filtre} /> ) }          
+            </Box>
           </>
         :
           <PokeModal pokedetail={pokeDetail} />

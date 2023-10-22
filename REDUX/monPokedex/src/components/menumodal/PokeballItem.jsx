@@ -42,8 +42,8 @@ const PokeballItem = ({image,nom,taille,poids,ind}) => {
                 <Typography>Weight</Typography>
                 <Typography>{poids}</Typography>
             </Box>
-            <Box>
-                <HighlightOffIcon color='error' sx={{ml:'1em'}} onClick={() => dispatch(freePoke(ind))} />
+            <Box sx={{ml:'auto', '&:hover': {cursor:'pointer'}}}>
+                <HighlightOffIcon color='error' onClick={() => dispatch(freePoke(ind))} />
             </Box>
         </Container>
     )

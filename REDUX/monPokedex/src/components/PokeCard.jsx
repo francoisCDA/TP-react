@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Card,Typography,Box, CardMedia, CardActions, CardContent } from "@mui/material"
 
-
+//derecated
 const PokeCard = ({pokemon, ind, filtre}) => {
 
     const [monPokemon,setMonPokemon] = useState(false)

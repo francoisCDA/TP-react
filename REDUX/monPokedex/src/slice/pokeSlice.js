@@ -21,17 +21,6 @@ function pokeExtractData(dataBrut) {
 }
 
 
-export const axiosGetPopulation = createAsyncThunk(
-    "pokemon/axiosGetPopulation",
-    async () => {
-        try {
-            const reponse = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=3') ;
-            return reponse.data.results
-        } catch (error) {
-            console.error(error.message);
-        }
-    }
-)
 
 export const axiosGetPokemonByURL = createAsyncThunk(
     "pokemon/axiosGetPokemonByURL",
@@ -58,19 +47,22 @@ const pokeSlice = createSlice({
     },
     reducers: {
         addToPokedex: (state,action) => {
-            state.pokedex.push(state.pokedetail);
+            state.pokedex.push(action.payload);
         },
-        resetZoo: (state,action) => {
+        resetPokedex: (state) => {
+            state.pokedex = [] ;
+        },
+        resetZoo: (state) => {
             state.pokeZoo = [] ;
         },
         setPokeDetail: (state,action) => {
             state.pokedetail = action.payload;
+        },
+        freePoke: (state,action) => {
+            state.pokedex.splice(action.payload,1);
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(axiosGetPopulation.fulfilled, (state,action) => {
-            state.pokeworld = action.payload ;
-        })
         builder.addCase(axiosGetPokemonByURL.fulfilled, (state,action) => {
             const pokeDataClean = pokeExtractData(action.payload)
 
@@ -86,5 +78,5 @@ const pokeSlice = createSlice({
     
 })
 
-export const { addToPokedex, resetZoo, setPokeDetail } = pokeSlice.actions
+export const { addToPokedex, resetPokedex, resetZoo, setPokeDetail, freePoke } = pokeSlice.actions
 export default pokeSlice.reducer

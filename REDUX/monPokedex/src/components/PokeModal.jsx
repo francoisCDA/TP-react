@@ -1,6 +1,6 @@
 import { Box, Container, Button, Typography } from "@mui/material"
 import { useDispatch } from "react-redux"
-import { setPokeDetail } from "../slice/pokeSlice";
+import { addToPokedex, setPokeDetail } from "../slice/pokeSlice";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
@@ -12,13 +12,13 @@ const PokeModal = ({pokedetail}) => {
         <>
         <Container sx={{display:'flex', flexDirection:'column', alignItems:'center', margin:'auto', mt:'1em'}}>
             <Box sx={{display:'flex', justifyContent:'space-evenly', width:'100%'}}>
-                <Box sx={{display:'flex', flexDirection:'column', p:'2em', backgroundColor:'rgba(150, 201, 113, 0.6)'}} >
+                <Box sx={{display:'flex', flexDirection:'column', p:'2em', backgroundColor:'rgba(250, 250, 250, 0.7)'}} >
                     <Typography variant="h4" sx={{color:'OrangeRed', fontWeight:'bolder', textAlign:'center'}}>{pokedetail.nom.toUpperCase()} </Typography>
                     <img height={'300px'} src={`${pokedetail.image}`} alt={`illustration d'un ${pokedetail.nom}`} />
-                    <Button variant='contained' color='success' ><AddCircleOutlineIcon sx={{mr:'0.3em'}}/>  Ajouter au Pokedex</Button>
+                    <Button variant='contained' color='success' onClick={() => dispatch(addToPokedex(pokedetail))} ><AddCircleOutlineIcon sx={{mr:'0.3em'}}/>  Ajouter à la PokeBall</Button>
                     
                 </Box>
-                <Box sx={{p:'2em', backgroundColor:'rgba(150, 201, 113, 0.6)', borderRadius:'20px'}}>
+                <Box sx={{p:'2em', backgroundColor:'rgba(250, 250, 250, 0.7)', borderRadius:'20px'}}>
                     <Typography variant="h4">HEIGHT</Typography>
                     <Typography variant="h6">{pokedetail.height}</Typography>
                     <Typography variant="h4">WEIGHT</Typography>
@@ -36,7 +36,7 @@ const PokeModal = ({pokedetail}) => {
 
                 </Box>
             </Box>
-            <Box sx={{ backgroundColor:'rgba(150, 201, 113, 0.6)', borderRadius:'20px', mt:'1em', p:'2em'}}>
+            <Box sx={{ backgroundColor:'rgba(250, 250, 250, 0.7)', borderRadius:'20px', mt:'1em', p:'2em'}}>
             <Typography variant="h4" >MOVES</Typography>
             <Box sx={{my:2, display:'flex', flexWrap:'wrap'}}>
                     { pokedetail.moves.map( (a,i) => <Typography key={i} variant="span" sx={{backgroundColor: 'SandyBrown', m:1,p:1, textTransform:'capitalize', fontWeight:'bold', borderRadius:'5px'}}>{a}</Typography>)}

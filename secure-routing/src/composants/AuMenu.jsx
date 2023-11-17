@@ -5,8 +5,12 @@ const AuMenu = () => {
 
     const netscape = useNavigate();
 
+<<<<<<< HEAD
 
     return (
+=======
+     return (
+>>>>>>> 6d44f0f5a14f061fe7fab15581449d4f7a87a901
         <>
             <header style={{display:  "flex"}}>
                 <button type="button" onClick={() => netscape('/')}>Accueil</button>

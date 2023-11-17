@@ -13,7 +13,7 @@ const AffArticlePanier = ({pannier,calcTotal}) => {
 
         axios.get(`http://localhost:5001/magasin/${pannier.id}`)
         .then(reponse => {
-          const nextArticle = {label: reponse.data.label,quantite:pannier.quantite ,prixHT: reponse.data.prixHT};
+          const nextArticle = {label: reponse.data.label ,quantite:pannier.quantite ,prixHT: reponse.data.prixHT};
           setArticle(nextArticle);
 
           calcTotal(pannier.quantite*reponse.data.prixHT);

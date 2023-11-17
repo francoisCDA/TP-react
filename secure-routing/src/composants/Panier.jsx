@@ -34,8 +34,6 @@ const Panier = () => {
         setPrixTotal(newprixtt);
     }, [lstPrix])
 
-    
-
 
     return (
         <>
